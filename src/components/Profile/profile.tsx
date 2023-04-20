@@ -51,7 +51,7 @@ function Profile() {
 	return (
 		<PerspectiveWrapper degree={10}>
 			<div
-				className="w-[292px] flex flex-col gap-[32px] font-Inter text-primary bg-[#111111] p-4 pb-6 shadow-2xl shadow-primary/5 rounded-md scale-100 transition-all  hover:shadow-primary/20"
+				className="w-[292px] flex flex-col gap-[32px] font-Inter text-primary bg-[#111111] p-4 pb-6 shadow-2xl shadow-primary/5 rounded-md scale-100 transition-all  hover:shadow-primary/15"
 				ref={ref}>
 				<div className="flex gap-4">
 					<ProfileImageComponent headSize={size} />
