@@ -1,0 +1,6 @@
+.spinner {
+	background: #ffc148;
+	border-radius: 2px;
+	transform: matrix(-1, 0, 0, 1, 0, 0);
+	@apply w-20 h-20;
+}
