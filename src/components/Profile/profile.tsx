@@ -8,8 +8,6 @@ import useElementSize from "@/hooks/useElementSize";
 import PerspectiveWrapper from "../wrappers/perspective";
 
 function Profile() {
-	const [ref, size] = useElementSize();
-
 	const TagDetails: ITags[] = [
 		{
 			active: true,
@@ -50,11 +48,9 @@ function Profile() {
 
 	return (
 		<PerspectiveWrapper degree={10}>
-			<div
-				className="w-[292px] flex flex-col gap-[32px] font-Inter text-primary bg-[#111111] p-4 pb-6 shadow-2xl shadow-primary/5 rounded-md scale-100 transition-all  hover:shadow-primary/15"
-				ref={ref}>
+			<div className="w-[292px] flex flex-col gap-[32px] font-Inter text-primary bg-[#111111] p-4 pb-6 shadow-2xl shadow-primary/5 rounded-md scale-100 transition-all  hover:shadow-primary/15">
 				<div className="flex gap-4">
-					<ProfileImageComponent headSize={size} />
+					<ProfileImageComponent />
 					<div className="flex flex-col justify-center items-start gap-2">
 						<h1 className="font-medium text-[19px]">dingaling.eth</h1>
 						<p className="text-secondary-light text-[12px]">0xadgf....jkld</p>

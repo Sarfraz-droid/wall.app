@@ -26,7 +26,7 @@ function NFTCard(props: INFTCard) {
 						width={193}
 						height={193}
 						alt="NFT Card"
-						className="hover:scale-105 transition-all"
+						className="hover:scale-105 transition-all duration-700"
 						ref={ref}
 					/>
 					<div
