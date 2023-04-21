@@ -1,4 +1,4 @@
-import { nft1 } from "@/assets/NFT";
+import { useMemo } from "react";
 import PerspectiveWrapper from "@/components/wrappers/perspective";
 import useElementSize from "@/hooks/useElementSize";
 import Image, { StaticImageData } from "next/image";
@@ -17,28 +17,37 @@ function NFTCard(props: INFTCard) {
 	const [ref, size] = useElementSize();
 	const [tagRef, tagSize] = useElementSize();
 
+	const tagStyles = useMemo(() => {
+		const top = size.top + size.height - tagSize.height;
+		const left = size.left + size.width - tagSize.width;
+		return {
+			top: top,
+			left: left,
+			opacity: top <= 0 || left <= 0 ? 0 : 1,
+		};
+	}, [size, tagSize]);
+
 	return (
 		<PerspectiveWrapper degree={10}>
-			<div className="p-1 pb-2 bg-[#111111] rounded-lg text-white flex flex-col gap-4 hover:shadow-2xl shadow-sm shadow-transparent hover:shadow-secondary-light/20 transition-all">
-				<div className="w-[193px] h-[193px] rounded-lg overflow-hidden">
+			<div className="p-1 pb-2 bg-[#111111] rounded-lg text-white flex flex-col gap-4 hover:shadow-2xl shadow-sm shadow-transparent hover:shadow-secondary-light/20 transition-all font-Inter">
+				<div
+					className="w-[193px] h-[193px] rounded-lg overflow-hidden"
+					ref={ref}>
 					<Image
 						src={props.image}
 						width={193}
 						height={193}
 						alt="NFT Card"
 						className="hover:scale-105 transition-all duration-700"
-						ref={ref}
 					/>
 					<div
-						className="bg-black/50 px-[6px] py-[1px] text-white absolute text-xs backdrop-blur-[3px] leading-[20px] rounded-[31px] -m-1"
+						className="bg-black/50 px-[6px] py-[1px] text-white absolute text-xs backdrop-blur-[3px] leading-[20px] rounded-[31px] -m-1 "
 						ref={tagRef}
-						style={{
-							top: size.top + size.height - tagSize.height,
-							left: size.left + size.width - tagSize.width,
-						}}>
+						style={tagStyles}>
 						3 Months
 					</div>
 				</div>
+
 				<div className="p-1 flex flex-col leading-[20px] gap-2 font-medium">
 					<h1 className="text-sm ">{props.title}</h1>
 					<div className="flex justify-between">

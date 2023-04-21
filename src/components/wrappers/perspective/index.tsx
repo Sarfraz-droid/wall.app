@@ -11,7 +11,6 @@ function PerspectiveWrapper({
 	const [ref, size, mousePos] = useElementSize({
 		trackMouse: true,
 	});
-	// console.log(size, mousePos);
 
 	const memo = useMemo((): {
 		x: number;

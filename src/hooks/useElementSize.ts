@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 export interface ISize {
     width: number
     height: number
@@ -11,6 +11,12 @@ export interface IMousePosition {
     y: number
 }
 
+/**
+ * @name useElementSize
+ * @description A hook that returns the size of an element
+ * @param props 
+ * @returns 
+ */
 function useElementSize<T extends HTMLElement = HTMLDivElement>(props = {} as {
     trackMouse?: boolean
 }): [
@@ -30,29 +36,7 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(props = {} as {
         x: 0,
         y: 0,
     });
-
-    useEffect(() => {
-        if (ref.current != null) {
-
-            setElementSize({
-                width: ref.current.offsetWidth,
-                top: ref.current.offsetTop,
-                left: ref.current.offsetLeft,
-                height: ref.current.offsetHeight,
-            });
-        }
-
-        window.addEventListener("resize", () => {
-            if (ref.current) {
-                setElementSize({
-                    width: ref.current.offsetWidth,
-                    top: ref.current.offsetTop,
-                    left: ref.current.offsetLeft,
-                    height: ref.current.offsetHeight,
-                });
-            }
-        });
-
+    const handleMouseMove = useCallback(() => {
         if (props && props?.trackMouse == true) {
             ref.current?.addEventListener("mousemove", (event) => {
                 setMousePosition({
@@ -70,11 +54,47 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(props = {} as {
         }
 
         return () => {
-            window.removeEventListener("resize", () => { });
             ref.current?.removeEventListener("mousemove", () => { });
             ref.current?.removeEventListener("mouseleave", () => { });
         }
+
+    }, [props]);
+
+    const updateSize = useCallback(() => {
+        if (ref.current != null) {
+            setElementSize({
+                width: ref.current.offsetWidth,
+                top: ref.current.offsetTop,
+                left: ref.current.offsetLeft,
+                height: ref.current.offsetHeight,
+            });
+
+        }
     }, [ref]);
+
+
+
+    const handleELementResize = useCallback(() => {
+        setTimeout(updateSize, 50);
+        window.addEventListener("resize", () => {
+            updateSize();
+        });
+
+
+        return () => {
+            window.removeEventListener("resize", () => { });
+        }
+
+    }, [updateSize]);
+
+
+    useEffect(() => {
+        handleELementResize();
+    }, [handleELementResize]);
+
+    useEffect(() => {
+        handleMouseMove();
+    }, [handleMouseMove]);
 
     const setRef = (node: T | null) => {
         ref.current = node;

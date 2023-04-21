@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import module from "./profile.module.css";
 import ProfilePic from "@/assets/profile.png";
+import useElementSize, { ISize } from "@/hooks/useElementSize";
 
 function ProfileImageComponent() {
 	return (

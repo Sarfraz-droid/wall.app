@@ -5,7 +5,7 @@ import { hDetails, nftDetails } from "./common/data";
 
 function Highlights() {
 	return (
-		<div className="flex flex-col gap-8">
+		<div className="flex flex-col gap-8 font-Inter">
 			<h1 className="text-[14px] text-secondary-light">Highlights</h1>
 			<div className="flex gap-4">
 				{hDetails.map((hDetail, index) => (
